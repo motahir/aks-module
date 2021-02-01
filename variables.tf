@@ -15,6 +15,5 @@ variable "dnsprefix" {
 }
 
 variable "subnet_id" {
-  type    = "string"
   default = ""
 }
