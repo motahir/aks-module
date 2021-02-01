@@ -1,13 +1,13 @@
 resource "azurerm_resource_group" "rg" {
   name     = "${var.name}-${var.env}"
-  location = "${var.location}"
+  location = var.location
 }
 
 resource "azurerm_kubernetes_cluster" "aks" {
   name                = "${var.name}-${var.env}"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  dns_prefix          = "${var.dnsprefix}"
+  dns_prefix          = var.dnsprefix
 
   default_node_pool {
     name       = "default"
@@ -20,7 +20,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 
   tags = {
-    Environment = "${var.location}"
+    Environment = var.location
   }
 
   addon_profile {
@@ -52,5 +52,5 @@ resource "azurerm_kubernetes_cluster_node_pool" "aks_node_pool" {
   kubernetes_cluster_id = azurerm_kubernetes_cluster.aks.id
   vm_size               = "Standard_DS2_v2"
   node_count            = 1
-  vnet_subnet_id        = "${var.subnet_id}"
+  vnet_subnet_id        = var.subnet_id
 }
