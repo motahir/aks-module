@@ -13,17 +13,11 @@ resource "azurerm_kubernetes_cluster" "aks" {
     name       = "default"
     node_count = 1
     vm_size    = "Standard_D2_v2"
-    vnet_subnet_id = var.subnet_id
   }
 
   service_principal {
     client_id     = var.app_id
     client_secret = var.password
-  }
-
-  network_profile {
-    network_plugin = "azure"
-	  network_policy = "azure"
   }
 
   role_based_access_control {
