@@ -9,13 +9,10 @@ resource "azurerm_kubernetes_cluster" "aks" {
   resource_group_name = azurerm_resource_group.rg.name
   dns_prefix          = "${var.dnsprefix}-${var.env}"
 
-  agent_pool_profile {
-    name            = "agentpool"
-    count           = 2
-    vm_size         = "Standard_D1_v2"
-    os_type         = "Linux"
-    os_disk_size_gb = 30
-    vnet_subnet_id  = var.subnet_id
+  default_node_pool {
+    name       = "default"
+    node_count = 1
+    vm_size    = "Standard_D2_v2"
   }
 
   service_principal {
@@ -23,15 +20,12 @@ resource "azurerm_kubernetes_cluster" "aks" {
     client_secret = var.password
   }
 
-  tags = {
-    Environment = var.location
+  role_based_access_control {
+    enabled = true
   }
 
-  network_profile {
-    network_plugin = "azure"
-    service_cidr = var.service_cidr
-    dns_service_ip = var.dns_service_ip
-    docker_bridge_cidr = var.docker_bridge_cidr
+  tags = {
+    Environment = var.location
   }
 
   addon_profile {
@@ -56,4 +50,11 @@ resource "azurerm_kubernetes_cluster" "aks" {
     }
   }
 
+}
+
+resource "azurerm_kubernetes_cluster_node_pool" "aks_node_pool" {
+  name                  = "${var.name}${var.env}"
+  kubernetes_cluster_id = azurerm_kubernetes_cluster.aks.id
+  vm_size               = "Standard_DS2_v2"
+  node_count            = 1
 }
