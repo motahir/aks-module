@@ -17,8 +17,3 @@ variable "dnsprefix" {
 variable "subnet_id" {
   default = ""
 }
-
-variable "subnet_ids" {
-  type    = "list"
-  default = [""]
-}
