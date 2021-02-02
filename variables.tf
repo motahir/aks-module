@@ -25,3 +25,15 @@ variable "app_id" {
 variable "password" {
   default = ""
 }
+
+variable "service_cidr" {
+  default = "10.0.56.0/22"
+}
+
+variable "dns_service_ip" {
+  default = "10.0.56.10"
+}
+
+variable "docker_bridge_cidr" {
+  default = "10.0.60.1/22"
+}
