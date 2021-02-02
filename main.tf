@@ -57,5 +57,8 @@ resource "azurerm_kubernetes_cluster_node_pool" "aks_node_pool" {
   kubernetes_cluster_id = azurerm_kubernetes_cluster.aks.id
   vm_size               = "Standard_DS2_v2"
   node_count            = 1
-  vnet_subnet_id        = var.subnet_id
+
+  tags = {
+    Environment = var.location
+  }
 }
