@@ -17,3 +17,11 @@ variable "dnsprefix" {
 variable "subnet_id" {
   default = ""
 }
+
+variable "app_id" {
+  default = ""
+}
+
+variable "password" {
+  default = ""
+}
