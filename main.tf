@@ -38,7 +38,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
     }
 
     azure_policy {
-      enabled = true
+      enabled = false
     }
 
     http_application_routing {
